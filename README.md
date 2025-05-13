@@ -21,6 +21,29 @@ Antes de começar, certifique-se de ter o **Node.js versão 21** ou superior ins
 ```bash
 node -v
 ```
+### Clonar o repositório
+
+```bash
+git clone 
+```
+
+### Acessar o diretório
+
+```bash
+cd ibge-soa
+```
+
+### Instalar as dependências
+
+```bash
+npm i
+```
+
+### Iniciar a aplicação
+
+```bash
+ng serve
+```
 
 | **Nome**         | **RA**   |
 | ---------------- | -------- |
