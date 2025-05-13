@@ -14,6 +14,14 @@ para fornecer análises de tendências de nomes próprios no Brasil, ao longo da
 proposta visa aplicar os conceitos de SOA na prática, promovendo a integração de serviços,
 separação de responsabilidades e reutilização de componentes.
 
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter o **Node.js versão 21** ou superior instalado em sua máquina. Você pode verificar a versão do Node com o comando:
+
+```bash
+node -v
+```
+
 | **Nome**         | **RA**   |
 | ---------------- | -------- |
 | **Cassia Yumi Iwamoto Basso** | RA: 22265008-2 |
