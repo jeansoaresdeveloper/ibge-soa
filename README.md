@@ -16,6 +16,6 @@ separação de responsabilidades e reutilização de componentes.
 
 | **Nome**         | **RA**   |
 | ---------------- | -------- |
-| **Cassia Yumi Iwamoto Basso** | RA: 00000000-0 |
+| **Cassia Yumi Iwamoto Basso** | RA: 22265008-2 |
 | **Jean Aparecido de Almeida Soares** | RA: 22254287-2 |
 | **Vinicius Kenji Uda** | RA: 22259133-2 |
