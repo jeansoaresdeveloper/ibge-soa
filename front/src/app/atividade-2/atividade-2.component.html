@@ -1,0 +1,20 @@
+<div>
+    <form [formGroup]="form">
+        <span>
+            <select formControlName="uf">
+                <option value="null" selected>Selecione um Estado</option>
+                @for (uf of ufs; track $index) {
+                    <option [value]="uf.id">{{ uf.nome }} - {{ uf.sigla }}</option>
+                }
+            </select>
+        </span>
+        <span>
+            <select formControlName="municipio">
+                <option value="null" selected>Selecione uma Cidade</option>
+                @for (municipio of municipios; track $index) {
+                    <option [value]="municipio.id">{{ municipio.nome }}</option>
+                }
+            </select>
+        </span>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+span {
+    display: flex;
+    gap: 5px;
+}
+
+span input {
+    width: 100%;
+    height: 40px;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
