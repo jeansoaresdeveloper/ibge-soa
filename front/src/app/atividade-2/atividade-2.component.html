@@ -18,3 +18,14 @@
         </span>
     </form>
 </div>
+<div style="margin-top: 10px;">
+
+    @for (frequencia of frequencias; track $index) {
+
+        <p [innerHTML]="frequencia.nome"></p>
+        <p [innerHTML]="frequencia.frequencia"></p>
+
+    }
+
+
+</div>

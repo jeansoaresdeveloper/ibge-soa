@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IbgeService } from '../ibge.service';
-import { debounceTime } from 'rxjs';
+import { debounceTime, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'atividade-2',
@@ -20,6 +20,14 @@ export class Atividade2Component {
   form: FormGroup<any> = new FormGroup({});
   ufs: any[] = [];
   municipios: any[] = [];
+  frequencias: {
+    decada: number;
+    nome: string;
+    frequencia: string;
+    ranking: string;
+  }[] = [];
+
+  readonly decadas = [1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010];
 
   constructor(
     private readonly builder: FormBuilder,
@@ -41,7 +49,7 @@ export class Atividade2Component {
 
     this.form.valueChanges
       .pipe(debounceTime(300))
-      .subscribe((form) => this.requestIbge(form));
+      .subscribe((form) => this.requestIbge());
   }
 
   requestUfs() {
@@ -69,7 +77,30 @@ export class Atividade2Component {
     );
   }
 
-  requestIbge(form: any) {
+  requestIbge() {
     if (!this.form.valid) return;
+
+    const id = this.form.get('municipio')?.value
+      ? this.form.get('municipio')?.value
+      : this.form.get('uf')?.value;
+
+    const requests = this.decadas.map((decada) =>
+      this.ibgeService.findRankingById(id, decada).pipe(
+        map((valores) => {
+          const pessoas: any = valores[0]?.res?.slice(0, 3) ?? [];
+
+          return {
+            decada: decada,
+            nome: pessoas.map((p: any) => p.nome).join('<br/>'),
+            ranking: pessoas.map((p: any) => p.ranking).join('<br/>'),
+            frequencia: pessoas.map((p: any) => p.frequencia).join('<br/>'),
+          };
+        })
+      )
+    );
+
+    forkJoin(requests).subscribe((response) => {
+      this.frequencias = response;
+    });
   }
 }

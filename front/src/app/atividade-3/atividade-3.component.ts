@@ -18,6 +18,14 @@ import { debounceTime } from 'rxjs';
 })
 export class Atividade3Component {
   form: FormGroup<any> = new FormGroup({});
+  data: {
+    labels: string[];
+    datasets: [
+      { label: string; data: number[]; borderWidth: number },
+      { label: string; data: number[]; borderWidth: number }
+    ];
+  } | null = null; // TODO: USAR PARA FAZER O ULTIMO QUANDO BUSCAR OS DOIS NOMES
+  // USAR O REPLACE DA ATIVIDADE 1 PARA FORMATAR AS LABELS
   chart: any = [];
 
   constructor(
