@@ -7,11 +7,12 @@ import {
 } from '@angular/forms';
 import { IbgeService } from '../ibge.service';
 import { debounceTime, forkJoin, map } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'atividade-2',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   providers: [IbgeService],
   templateUrl: './atividade-2.component.html',
   styleUrl: './atividade-2.component.scss',
@@ -40,16 +41,19 @@ export class Atividade2Component {
       municipio: [null],
     });
 
+    this.form.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe(() => this.requestIbge());
+
     this.requestUfs();
 
     this.form
       .get('uf')
       ?.valueChanges.pipe(debounceTime(300))
-      .subscribe((value) => this.findMunicios(value));
-
-    this.form.valueChanges
-      .pipe(debounceTime(300))
-      .subscribe((form) => this.requestIbge());
+      .subscribe((value) => {
+        this.findMunicios(value);
+        this.form.get('municipio')?.setValue(null);
+      });
   }
 
   requestUfs() {

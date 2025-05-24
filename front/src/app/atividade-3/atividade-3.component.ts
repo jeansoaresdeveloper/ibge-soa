@@ -7,11 +7,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+import { ChartComponent } from '../chart/chart.component';
+import { CommonModule } from '@angular/common';
+import { log } from 'console';
 
 @Component({
   selector: 'atividade-3',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ChartComponent, CommonModule],
   providers: [IbgeService],
   templateUrl: './atividade-3.component.html',
   styleUrl: './atividade-3.component.scss',
@@ -24,9 +27,9 @@ export class Atividade3Component {
       { label: string; data: number[]; borderWidth: number },
       { label: string; data: number[]; borderWidth: number }
     ];
-  } | null = null; // TODO: USAR PARA FAZER O ULTIMO QUANDO BUSCAR OS DOIS NOMES
-  // USAR O REPLACE DA ATIVIDADE 1 PARA FORMATAR AS LABELS
-  chart: any = [];
+  } | null = null;
+
+  showKenji = false;
 
   constructor(
     private readonly builder: FormBuilder,
@@ -45,9 +48,36 @@ export class Atividade3Component {
       ],
     });
 
-    this.form.valueChanges
-      .pipe(debounceTime(300))
-      .subscribe((form) => this.requestIbge(form));
+    this.form.valueChanges.pipe(debounceTime(300)).subscribe((form) => {
+      this.requestIbge(form);
+      this.verifyShowKenji(form);
+    });
+  }
+
+  private buildDataForChart(response: any) {
+    if (!response) {
+      this.data = null;
+      return;
+    }
+
+    const labels = response[0].res.map((periodos: any) => {
+      return periodos.periodo.replace(/[\[\]]/g, '').replace(',', '-');
+    });
+
+    const datasets = response.map((pessoa: any) => {
+      const data = pessoa.res.map((frequencias: any) => frequencias.frequencia);
+
+      return {
+        label: pessoa.nome,
+        data: data,
+        borderWidth: 1,
+      };
+    });
+
+    this.data = {
+      labels: labels,
+      datasets: datasets,
+    };
   }
 
   requestIbge(form: any) {
@@ -55,6 +85,11 @@ export class Atividade3Component {
 
     this.ibgeService
       .findByNomes([form.pessoaUm, form.pessoaDois])
-      .subscribe((response) => console.log(response));
+      .subscribe((response) => this.buildDataForChart(response));
+  }
+
+  private verifyShowKenji(form: any) {
+    this.showKenji = form.pessoaUm === 'taldo' && form.pessoaDois === 'kenji';
+    this.showKenji = false;
   }
 }

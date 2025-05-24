@@ -6,3 +6,11 @@
         </span>
     </form>
 </div>
+
+<div class="absolute" *ngIf="showKenji">
+    <img src="/assets/images/kenjo.jpg" alt="">
+</div>
+
+<div style="margin-top: 20px;">
+    <app-chart *ngIf="data" [data]="data"></app-chart>
+</div>

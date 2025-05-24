@@ -10,3 +10,14 @@ span input {
     border: 0;
     border-bottom: 1px solid #ccc;
 }
+
+.absolute {
+    width: 100vw;
+    height: calc(100vh - 120px);
+    top: 120px;
+    left: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

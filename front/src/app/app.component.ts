@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      atividade: [2, Validators.required],
+      atividade: [null, Validators.required],
     });
   }
 }

@@ -4,7 +4,7 @@
             <select formControlName="uf">
                 <option value="null" selected>Selecione um Estado</option>
                 @for (uf of ufs; track $index) {
-                    <option [value]="uf.id">{{ uf.nome }} - {{ uf.sigla }}</option>
+                <option [value]="uf.id">{{ uf.nome }} - {{ uf.sigla }}</option>
                 }
             </select>
         </span>
@@ -12,7 +12,7 @@
             <select formControlName="municipio">
                 <option value="null" selected>Selecione uma Cidade</option>
                 @for (municipio of municipios; track $index) {
-                    <option [value]="municipio.id">{{ municipio.nome }}</option>
+                <option [value]="municipio.id">{{ municipio.nome }}</option>
                 }
             </select>
         </span>
@@ -20,12 +20,24 @@
 </div>
 <div style="margin-top: 10px;">
 
-    @for (frequencia of frequencias; track $index) {
-
-        <p [innerHTML]="frequencia.nome"></p>
-        <p [innerHTML]="frequencia.frequencia"></p>
-
-    }
+    <table style="margin-top: 10px;text-align: center; width: 100%;" border="1" *ngIf="frequencias.length">
+        <thead>
+          <tr>
+            <th>Década</th>
+            <th>Nome</th>
+            <th>Frequência</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (frequencia of frequencias; track $index) {
+            <tr>
+              <td [innerHtml]="frequencia.decada"></td>
+              <td [innerHtml]="frequencia.nome"></td>
+              <td [innerHtml]="frequencia.frequencia"></td>
+            </tr>
+          }
+        </tbody>
+      </table>
 
 
 </div>
